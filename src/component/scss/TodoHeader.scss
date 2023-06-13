@@ -1,0 +1,28 @@
+
+//변수 선언
+$my-dark-gray: #343a40;
+
+header {
+    padding: 48px 32px 24px;
+    border-bottom: 1px solid #bbb;
+
+    h1 {
+        font-size: 36px;
+        color: #343a40;
+    }
+
+    .day {
+        margin-top: 4px;
+        color: #9cc5ee;
+        font-size: 21px;
+    }
+
+    .tasks-left {
+        color: rgb(75, 131, 204);
+        font-size: 18px;
+        margin-top: 40px;
+        font-weight: 700;
+    }
+
+
+}
