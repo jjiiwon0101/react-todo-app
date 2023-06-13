@@ -1,10 +1,51 @@
 
 .form-wrapper {
-    background: orange;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    .insert-form {
+        background: #f8f9fa;
+        padding: 32px 32px 72px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        border-top: 1px solid #e9ecef;
+
+        input {
+            padding: 12px;
+            border-radius: 4px;
+            width: 100%;
+            border: 1px solid #94989b;
+            outline: none;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+    }
 }
 
 .insert-btn {
     background: #5e9bcc;
+
+    &:hover {
+        background: #8ab9df;
+    }
+    &:active {
+        background: #4d799c;
+    }
+    &.open {
+        background: #ff326f;
+
+        &:hover {
+            background: #e99eb7;
+        }
+        &:active {
+            background: #af0446
+        }
+        transform: translate(-50%, -50%) rotate(45deg);
+    }   
+
+
 
     z-index: 5;
     cursor: pointer;
@@ -20,4 +61,9 @@
     color: white;
     border-radius: 50%;
     border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease-in-out;
 }
