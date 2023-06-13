@@ -6,7 +6,7 @@ import './scss/TodoItem.scss';
 const TodoItem = () => {
   return (
     <li className='todo-list-item'>
-        <div className='check-circle'>
+        <div className='check-circle active'>
             <MdDone />
         </div>
         <span className='text'>할 일 어쩌고~~~</span>
