@@ -82,14 +82,34 @@ const TodoTemplate = () => {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
+  //할 일 체크 처리 함수
+  const checkTodo = id => {
+    //console.log(`체크한 Todo id: ${id}`);
+
+    // const copyTodos = [...todos];
+    // for(const cTodo of copyTodos) {
+    //   if(cTodo.id === id) {
+    //     cTodo.done = !cTodo.done;
+    //   }
+    // }
+    // setTodos(copyTodos);
+
+    setTodos(todos.map(todo => todo.id === id ? {...todo, 'done' : !todo.done} : todo)); //복사문과 반복문 돌리기를 map이 해주고 있다.
+  }
+
+  //체크가 안 된 할 일의 개수 카운트 하기
+  const countRestTodo = () => {
+  return todos.filter(todo => !todo.done).length;
+  }
+
   useEffect(() => {
     console.log(todos);
   }, [todos]);
 
   return (
     <div className='TodoTemplate'>
-      <TodoHeader />
-      <TodoMain todoList={todos} remove={removeTodo}/>
+      <TodoHeader count={countRestTodo}/>
+      <TodoMain todoList={todos} remove={removeTodo} check={checkTodo}/>
       <TodoInput  addTodo={addTodo}/>
 
     </div>

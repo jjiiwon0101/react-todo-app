@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import './scss/TodoItem.scss';
 
-const TodoItem = ({ item, remove  }) => {
+const TodoItem = ({ item, remove, check, rest  }) => {
 
   const {id, title, done} = item; //변수 선언, 각각의 프로퍼티가 들어감
   
@@ -12,7 +12,10 @@ const TodoItem = ({ item, remove  }) => {
 
   return (
     <li className='todo-list-item'>
-        <div className={cn('check-circle active', {active: done})}>
+        <div 
+        className={cn('check-circle active', {active: done})}
+        onClick={() => check(id)}
+        >
           {done && <MdDone />}
         </div>
         <span className={cn('text', {finish: done})}>{title}</span>
