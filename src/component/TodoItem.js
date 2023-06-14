@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import './scss/TodoItem.scss';
 
-const TodoItem = ({ item  }) => {
+const TodoItem = ({ item, remove  }) => {
 
   const {id, title, done} = item; //변수 선언, 각각의 프로퍼티가 들어감
   
@@ -16,7 +16,7 @@ const TodoItem = ({ item  }) => {
           {done && <MdDone />}
         </div>
         <span className={cn('text', {finish: done})}>{title}</span>
-        <div className='remove'>
+        <div className='remove' onClick={() => remove(id)}>
           <MdDelete />
         </div>
     </li>
