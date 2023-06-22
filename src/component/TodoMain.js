@@ -11,7 +11,7 @@ const TodoMain = ({ todoList, remove, check }) => {
           <TodoItem key={todo.id} item={todo} remove={remove} check={check}/>)
         }
     </ul>
-  )
+  );
 }
 
 export default TodoMain;
