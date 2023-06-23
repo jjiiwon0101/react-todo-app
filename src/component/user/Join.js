@@ -286,7 +286,11 @@ import { API_BASE_URL as BASE, USER } from '../../config/host-config';
                             autoComplete="email"
                             onChange={emailHandler}
                         />
-                        <span></span>
+                         <span style={
+                            correct.email
+                            ? {color : 'green'}
+                            : {color : 'red'}
+                        }>{message.email}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
