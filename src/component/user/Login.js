@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {Button, Container, Grid,
     TextField, Typography, Link} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
-
-
-
+import AuthContext from '../../util/AuthContext';
 
 const Login = () => {
+
     const redirection = useNavigate();
+
+    // AuthContext에서 onLogin 함수를 가져옵니다.
+    const { onLogin, isLoggedIn } = useContext(AuthContext);
+
     const REQUEST_URL = BASE + USER + '/signin';
 
     //서버에 비동기 로그인 요청
@@ -20,44 +23,39 @@ const Login = () => {
         const $email = document.getElementById('email');
         const $password = document.getElementById('password');
 
-
         //await는 async로 선언된 함수에서만 사용이 가능합니다.
-        //await는 프로미스 객체가 처리될 때까지 기다립니다.
+        //await는 프로미스 객체가 처리될 때까지 기다립니다. 
         //프로미스 객체의 반환값을 바로 활용할 수 있게 도와줍니다.
         //then()을 활용하는 것보다 가독성이 좋고 쓰기도 쉽습니다.
-        const res =  await fetch(REQUEST_URL, {
+        const res = await fetch(REQUEST_URL, {
             method: 'POST',
             headers: { 'content-type' : 'application/json' },
             body: JSON.stringify({
                 email: $email.value,
                 password: $password.value
-            })
+             })
         });
 
-        if(res.status === 400) {
-             const text = await res.text();
-             alert(text);
-             return;
+        if (res.status === 400) {
+            const text = await res.text();
+            alert(text);
+            return;
         }
 
-         const { token, userName, email, role } = await res.json();
-         //console.log(json);
+        const { token, userName, email, role } = await res.json();
+        // console.log(json);
+      
 
-         //홈으로 리다이렉트
+        // Context API를 사용하여 로그인 상태를 업데이트합니다.
+        onLogin(token, userName, role);
+        
+        
+        //홈으로 리다이렉트
         redirection('/');
 
-        //json에 담긴 인증정보를 클라이언트에 보관
-        //1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
-        //2. 세션 스토리지 - 브라우저가 종료되면 사라짐.
 
-        localStorage.setItem('ACCESS_TOKEN', token);//괄호 안에 저장할 값을 줌, key와 value를 입력.
-        localStorage.setItem('LOGIN_USERNAME', userName);
-        localStorage.setItem('USER_ROLE', role);
-
-
-        //구 문법
         // fetch(REQUEST_URL, {
-        //     method: 'POST',
+        //    
         //     headers: { 'content-type' : 'application/json' },
         //     body: JSON.stringify({
         //         email: $email.value,
@@ -65,8 +63,8 @@ const Login = () => {
         //     })
         // })
         // .then(res => {
-        //     if(res.status === 400) {//가입이 안되어있거나 비번 틀린 경우
-        //        return res.text();
+        //     if(res.status === 400) { // 가입이 안되어있거나, 비번 틀린 경우
+        //         return res.text();
         //     }
         //     return res.json();
         // })
@@ -76,9 +74,7 @@ const Login = () => {
         //         return;
         //     }
         //     console.log(result);
-        // })
-
-
+        // });
     }
 
     //로그인 요청 핸들러
@@ -87,9 +83,11 @@ const Login = () => {
 
         
 
-        //서버에 로그인 요청 전송
+        // 서버에 로그인 요청 전송
         fetchLogin();
+
     }
+
     return (
         <Container component="main" maxWidth="xs" style={{ margin: "200px auto" }}>
             <Grid container spacing={2}>
@@ -140,6 +138,7 @@ const Login = () => {
             </form>
         </Container>
       );
+
 }
 
 export default Login;
