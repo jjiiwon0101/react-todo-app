@@ -16,7 +16,7 @@ const TodoHeader = ({ count, promote }) => {
 
   const upgrade = () => {
     if (window.confirm('프리미엄으로 업그레이드 하시겠습니까?')) {
-      promote();
+      promote(); //true가 오면 promote 실행.
     }
   }
 
